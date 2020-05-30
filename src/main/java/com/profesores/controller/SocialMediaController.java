@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.function.ServerRequest.Headers;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.profesores.service.ICrudService;
@@ -29,18 +30,26 @@ public class SocialMediaController{
 	//GET
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/socialMedias", method = RequestMethod.GET, headers = "Accept=application/json")
-	public ResponseEntity<List<SocialMedia>> getSocialMedias(){
-		List<SocialMedia> socialMedias = new ArrayList<>();
+	public ResponseEntity<?> getSocialMedias(@RequestParam(value = "name", required = false) String name){
 		
-		socialMedias = (List<SocialMedia>) _socialMediaService.getAll();
-		
-		System.out.println(socialMedias.isEmpty());
-		
-		if(socialMedias.isEmpty()) {
-			return new ResponseEntity<List<SocialMedia>>(HttpStatus.NO_CONTENT);
+		if(name == null || name.equals("")) {
+			List<SocialMedia> socialMedias = new ArrayList<>();
+			socialMedias = (List<SocialMedia>) _socialMediaService.getAll();
+			
+			if(socialMedias.isEmpty()) {
+				return new ResponseEntity<List<SocialMedia>>(HttpStatus.NO_CONTENT);
+			}
+			
+			return new ResponseEntity<List<SocialMedia>>(socialMedias, HttpStatus.OK);
+		} else {
+			SocialMedia socialMedia = _socialMediaService.findByName(name);
+			if(socialMedia != null) {
+				return new ResponseEntity<SocialMedia>(socialMedia, HttpStatus.OK);
+			}
 		}
 		
-		return new ResponseEntity<List<SocialMedia>>(socialMedias, HttpStatus.OK);
+		return new ResponseEntity<ErrorMessage>(new ErrorMessage("Not found."), HttpStatus.NOT_FOUND);	
+		
 	}
 	
 	//GET

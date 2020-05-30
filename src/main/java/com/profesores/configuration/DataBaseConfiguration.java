@@ -12,6 +12,8 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.profesores.util.UserData;
+
 /**
  * <b>Configuración Base de datos</b> <br>
  * Clase para configurar la base de datos. 
@@ -36,8 +38,8 @@ public class DataBaseConfiguration {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("org.postgresql.Driver");
 		dataSource.setUrl("jdbc:postgresql://localhost:5432/testTeachers");
-		dataSource.setUsername("postgres");
-		dataSource.setPassword("Gns1234!");
+		dataSource.setUsername(UserData.USER);
+		dataSource.setPassword(UserData.PASSWORD);
 		
 		return dataSource;
 	}

@@ -13,4 +13,18 @@ import com.profesores.model.Course;
  */
 public interface ICourseService {
 	List<Course> findByIdteacher(Long idTeacher);
+	
+void insert(Course course);
+	
+	void delete(Course course);
+	
+	void deleteById(Long id);
+	
+	void update(Course course);
+	
+	List<Course> getAll();
+	
+	Course findById(Long id);
+	
+	Course findByName(String name);
 }
