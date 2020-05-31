@@ -68,7 +68,7 @@ public class CourseService implements ICrudService<Course>, ICourseService{
 
 	@Override
 	public Course findByName(String name) {
-		return _crudDao.findByName(name);
+		return (Course) _crudDao.findByName(name);
 	}
 
 	@Override

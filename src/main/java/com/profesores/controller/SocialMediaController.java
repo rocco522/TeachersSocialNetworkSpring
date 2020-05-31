@@ -69,7 +69,7 @@ public class SocialMediaController{
 
 	//POST
 	@RequestMapping(value = "/socialMedias", method = RequestMethod.POST, headers = "Accept=application/json")
-	public ResponseEntity<?> createSocialMedia(@RequestBody com.profesores.model.SocialMedia socialMedia, UriComponentsBuilder uriComponentsBuilder){
+	public ResponseEntity<?> createSocialMedia(@RequestBody SocialMedia socialMedia, UriComponentsBuilder uriComponentsBuilder){
 		
 		if(socialMedia.getName().equals(null) || socialMedia.getName().isEmpty()) {
 			return new ResponseEntity<ErrorMessage>(new ErrorMessage("IdSocialMedia is required."), HttpStatus.NO_CONTENT);
@@ -81,7 +81,7 @@ public class SocialMediaController{
 		
 		_socialMediaService.insert((SocialMedia) socialMedia);
 		HttpHeaders headers = new HttpHeaders();
-		com.profesores.model.SocialMedia sm = (com.profesores.model.SocialMedia) _socialMediaService.findByName(socialMedia.getName());
+		SocialMedia sm =  _socialMediaService.findByName(socialMedia.getName());
 		headers.setLocation(uriComponentsBuilder.path("/v1/socialMedias/{id}").buildAndExpand(sm.getIdSocialMedia()).toUri());
 		
 		return new ResponseEntity<String>(headers, HttpStatus.CREATED);
