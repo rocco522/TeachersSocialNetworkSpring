@@ -19,51 +19,47 @@ import com.profesores.model.Teacher;
  */
 @Service("teacherService")
 @Transactional
-public class TeacherService implements ICrudDao<Teacher>{
-
-	@Autowired
-	private ICrudDao<Teacher> _crudDao;
+public class TeacherService implements ITeacherService{
 	
-	/**
-	 * 
-	 */
-	public TeacherService() {
-		// TODO Auto-generated constructor stub
-	}
+	@Autowired
+	private ICrudDao<Teacher> _crudService;
 
 	@Override
 	public void insert(Teacher t) {
-		_crudDao.insert(t);
+		_crudService.insert(t);
+		
 	}
 
 	@Override
 	public void delete(Teacher t) {
-		_crudDao.delete(t);
+		_crudService.delete(t);		
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		_crudDao.deleteById(id);
+		_crudService.deleteById(id);
 	}
 
 	@Override
 	public void update(Teacher t) {
-		_crudDao.update(t);
+		_crudService.update(t);
 	}
 
 	@Override
 	public List<Teacher> getAll() {
-		return _crudDao.getAll();
+		return _crudService.getAll();
 	}
 
 	@Override
 	public Teacher findById(Long id) {
-		return _crudDao.findById(id);
+		return _crudService.findById(id);
 	}
 
 	@Override
 	public Teacher findByName(String name) {
-		return _crudDao.findByName(name);
+		return _crudService.findByName(name);
 	}
+	
+	
 
 }

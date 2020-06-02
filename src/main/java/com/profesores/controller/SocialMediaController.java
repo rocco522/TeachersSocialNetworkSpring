@@ -7,11 +7,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.function.ServerRequest.Headers;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.profesores.service.ICrudService;
@@ -19,13 +22,18 @@ import com.profesores.service.ISocialMediaService;
 import com.profesores.util.ErrorMessage;
 import com.profesores.model.SocialMedia;
 
-@Controller
+@CrossOrigin
+@RestController
 @RequestMapping("/v1")
 public class SocialMediaController{
 	
 	@Autowired
 	ISocialMediaService _socialMediaService;
 	
+	@GetMapping(value = "status")
+	String checkStatus() {
+		return "ok";
+	}
 	
 	//GET
 	@SuppressWarnings("unchecked")
